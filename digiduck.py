@@ -64,7 +64,9 @@ while line:
     elif cmd == 'DELAY':
         new_cmd = 'DigiKeyboard.delay({});'.format(options[0])
     elif cmd == 'STRING':
-        new_cmd = 'DigiKeyboard.print("{}");'.format(' '.join(options))
+        trans = str.maketrans('azqwAZQW&é"\'(-è_çà)^$Mù,?mM;:!/.§1234567890'
+                             ,'qwazQWAZ1234567890-[]:\'mM;:,./><?!@#$%^&*()')
+        new_cmd = 'DigiKeyboard.print("{}");'.format(' '.join(options).translate(trans))
     elif len(options) == 0:
         new_cmd = 'DigiKeyboard.sendKeyStroke({});'.format(key(cmd))
     else:
