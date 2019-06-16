@@ -21,6 +21,33 @@ sketch = open(sketch_name, 'w+')
 
 sketch.write('#include "DigiKeyboard.h"\n')
 sketch.write('void setup() {\n')
+sketch.write('pinMode(0, OUTPUT);\n')
+sketch.write('pinMode(1, OUTPUT);\n')
+
+keys = {
+    'SPACE': 'KEY_SPACE',
+    'GUI': 'MOD_GUI_LEFT',
+    'WINDOWS': 'MOD_GUI_LEFT',
+    'ESCAPE': 'KEY_ESC',
+    'UP': 'KEY_ARROW_UP',
+    'UPARROW': 'KEY_ARROW_UP',
+    'DOWN': 'KEY_ARROW_DOWN',
+    'DOWNARROW': 'KEY_ARROW_DOWN',
+    'LEFT': 'KEY_ARROW_LEFT',
+    'LEFTARROW': 'KEY_ARROW_LEFT',
+    'RIGHT': 'KEY_ARROW_RIGHT',
+    'RIGHTARROW': 'KEY_ARROW_RIGHT',
+    'ALT': 'MOD_ALT_LEFT',
+    'CTRL': 'MOD_CONTROL_LEFT',
+    'CONTROL': 'MOD_CONTROL_LEFT',
+    'TAB': 43
+}
+
+def key(input):
+    if input in keys:
+        return keys[input]
+    else:
+        return ('KEY_'+input.upper())
 
 line = ducky_script.readline()
 line_number = 1
@@ -28,28 +55,24 @@ while line:
     line = line.rstrip("\n\r")
     words = line.split(' ')
     cmd = words[0].upper()
-    args = words[1:]
+    options = words[1:]
     
     if cmd == 'REM':
-        new_cmd = '// '+' '.join(args)
+        new_cmd = '// '+' '.join(options)
+    elif cmd == 'DEFAULT_DELAY':
+        new_cmd = ''
     elif cmd == 'DELAY':
-        new_cmd = 'DigiKeyboard.delay({});'.format(args[0])
+        new_cmd = 'DigiKeyboard.delay({});'.format(options[0])
     elif cmd == 'STRING':
-        new_cmd = 'DigiKeyboard.print("{}");'.format(' '.join(args))
-    elif cmd == 'GUI' or cmd == 'WINDOWS':
-        new_cmd = 'DigiKeyboard.sendKeyStroke(MOD_GUI_LEFT, KEY_SPACE);'.format(' '.join(args))
-    elif cmd == 'UP' or cmd == 'UPARROW':
-        new_cmd = 'DigiKeyboard.sendKeyStroke(KEY_ARROW_UP);'
-    elif cmd == 'DOWN' or cmd == 'DOWNARROW':
-        new_cmd = 'DigiKeyboard.sendKeyStroke(KEY_ARROW_DOWN);'
-    elif cmd == 'LEFT' or cmd == 'LEFTARROW':
-        new_cmd = 'DigiKeyboard.sendKeyStroke(KEY_ARROW_LEFT);'
-    elif cmd == 'RIGHT' or cmd == 'RIGHTARROW':
-        new_cmd = 'DigiKeyboard.sendKeyStroke(KEY_ARROW_RIGHT);'
-    elif cmd == 'ENTER':
-        new_cmd = 'DigiKeyboard.sendKeyStroke(KEY_ENTER);'
+        new_cmd = 'DigiKeyboard.print("{}");'.format(' '.join(options))
+    elif len(options) == 0:
+        new_cmd = 'DigiKeyboard.sendKeyStroke({});'.format(key(cmd))
     else:
-        new_cmd = ' '.join(words)
+        keys_to_send = []
+        for option in words:
+            keys_to_send.append(key(option))
+        keys_to_send = reversed(keys_to_send)
+        new_cmd = 'DigiKeyboard.sendKeyStroke({});'.format(','.join(keys_to_send))
     
     print(new_cmd)
     sketch.write(new_cmd+"\n")
@@ -57,4 +80,11 @@ while line:
     line_number += 1
 
 sketch.write('}\n')
-sketch.write('void loop(){}\n')
+sketch.write('void loop(){\n')
+sketch.write('digitalWrite(0, HIGH);\n')
+sketch.write('digitalWrite(1, HIGH);\n')
+sketch.write('delay(100);\n')
+sketch.write('digitalWrite(0, LOW);\n')
+sketch.write('digitalWrite(1, LOW);\n')
+sketch.write('delay(100);\n')
+sketch.write('}\n')
