@@ -5,6 +5,8 @@ import os
 import argparse
 from shutil import copyfile
 
+
+# Args parser
 parser = argparse.ArgumentParser()
 parser.add_argument("file", type=str,
                     help="Ducky script file to convert")
@@ -14,18 +16,23 @@ parser.add_argument("-v", "--verbose", action="store_true",
                     help="increase output verbosity")
 args = parser.parse_args()
 
+
+# Check ducky script input file
 try:
     ducky_script = open(args.file, 'r')
 except IOError:
     print("Error: File not found")
     sys.exit(0)
 
+
+# Prepare output directory, output file and lib
 sketch_name = os.path.splitext(args.file)[0]
 os.mkdir(sketch_name)
 sketch = open(sketch_name+'/'+sketch_name+'.ino', 'w+')
 copyfile('DigiDuck.h',sketch_name+'/'+'DigiDuck.h')
 
 
+# Check keyboard layout file
 if args.keyboard:
     layout = args.keyboard
 else:
@@ -38,13 +45,7 @@ else:
     sys.exit(0)
 
 
-sketch.write('#include "{}.h"\n'.format(layout))
-sketch.write('#include "DigiDuck.h"\n')
-sketch.write('\n')
-sketch.write('void setup() {\n')
-sketch.write('  pinMode(0, OUTPUT);\n')
-sketch.write('  pinMode(1, OUTPUT);\n')
-
+# Define specials keys converstion dictionary
 keys = {
     'SPACE': 'KEY_SPACE',
     'GUI': 'MOD_GUI_LEFT',
@@ -64,12 +65,25 @@ keys = {
     'TAB': 43
 }
 
+
+# Add headers to output file
+sketch.write('#include "{}.h"\n'.format(layout))
+sketch.write('#include "DigiDuck.h"\n')
+sketch.write('\n')
+sketch.write('void setup() {\n')
+sketch.write('  pinMode(0, OUTPUT);\n')
+sketch.write('  pinMode(1, OUTPUT);\n')
+
+
+# Specials keys replacement
 def key(input):
     if input in keys:
         return keys[input]
     else:
         return ('KEY_'+input.upper())
 
+
+# Ducky script parser
 line = ducky_script.readline()
 line_number = 1
 while line:
@@ -101,8 +115,12 @@ while line:
     line_number += 1
 
 sketch.write('}\n')
+
 sketch.write('\n')
+
+# Main loop after exec used to make the led blinking
 sketch.write('void loop(){\n')
+sketch.write('  //Make led blinking forever\n')
 sketch.write('  digitalWrite(0, HIGH);\n')
 sketch.write('  digitalWrite(1, HIGH);\n')
 sketch.write('  delay(100);\n')
