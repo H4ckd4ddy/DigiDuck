@@ -29,7 +29,7 @@ const int8_t layout[] PROGMEM = {0,0,  0,0, //[NUL] & [SOH] (2 chars on this lin
 0,  0, //[GS]       #  bit 3 -> No idea...                    #
 0,  0, //[RS]       #  bit 4 -> No idea...                    #
 0,  0, //[US]       #  bit 5 -> No idea...                    #
-44, 0, //[SPACE]	#  bit 6 -> Alt Gr                        #
+44, 0, //[SPACE]	  #  bit 6 -> Alt Gr                        #
 40, 0, //!          #  bit 7 -> No idea...                    #
 32, 0, //"          #                                         #
 32, 64,//#          ###########################################
@@ -43,8 +43,8 @@ const int8_t layout[] PROGMEM = {0,0,  0,0, //[NUL] & [SOH] (2 chars on this lin
 86, 0, //+
 16, 0, //,
 35, 0, //-
-99, 0, //.
-83, 0, ///
+54, 2, //.
+55, 2, ///
 98, 0, //0
 89, 0, //1
 90, 0, //2
@@ -89,7 +89,7 @@ const int8_t layout[] PROGMEM = {0,0,  0,0, //[NUL] & [SOH] (2 chars on this lin
 28, 2, //Y
 26, 2, //Z
 34, 64,//[
-37, 64,//\ 
+37, 64,
 45, 64,//]
 47, 0, //^
 37, 0, //_

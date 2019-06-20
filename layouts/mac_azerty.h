@@ -89,7 +89,7 @@ const int8_t layout[] PROGMEM = {0,0,  0,0, //[NUL] & [SOH] (2 chars on this lin
 28, 2, //Y
 26, 2, //Z
 34, 6, //[
-55, 6, //\ 
+55, 6,
 45, 6, //]
 50, 0, //^
 46, 2, //_
