@@ -36,7 +36,7 @@ copyfile('DigiDuck.h',sketch_name+'/'+'DigiDuck.h')
 if args.keyboard:
     layout = args.keyboard
 else:
-    layout = 'mac_azerty'
+    layout = 'azerty'
 
 if os.path.isfile('layouts/'+layout+'.h'):
     copyfile('layouts/'+layout+'.h',sketch_name+'/'+layout+'.h')
