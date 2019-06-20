@@ -2,7 +2,7 @@ const int8_t layout[] PROGMEM = {0,0,  0,0, //[NUL] & [SOH] (2 chars on this lin
 0,  0, //[STX]
 0,  0, //[ETX]
 0,  0, //[EOT]      ###########################################
-0,  0, //[ENQ]      #      Layout of Mac AZERTY keyboard      #
+0,  0, //[ENQ]      #   Layout of standard AZERTY keyboard    #
 0,  0, //[ACK]      #        For DigiDuck by Hackdaddy        #
 0,  0, //[BEL]      #  https://github.com/H4ckD4ddy/DigiDuck  #
 0,  0, //[BS]       ###########################################
@@ -23,28 +23,28 @@ const int8_t layout[] PROGMEM = {0,0,  0,0, //[NUL] & [SOH] (2 chars on this lin
 0,  0, //[ETB]      # To add a key that must be pressed,      #
 0,  0, //[CAN]      # change the corresponding bit in number: #
 0,  0, //[EM]       #                                         #
-0,  0, //[SUB]      #  bit 0 -> No effect                     #
+0,  0, //[SUB]      #  bit 0 -> No idea...                    #
 0,  0, //[ESC]      #  bit 1 -> Shift key                     #
-0,  0, //[FS]       #  bit 2 -> Alt key                       #
-0,  0, //[GS]       #  bit 3 -> Cmd key                       #
+0,  0, //[FS]       #  bit 2 -> No idea...                    #
+0,  0, //[GS]       #  bit 3 -> No idea...                    #
 0,  0, //[RS]       #  bit 4 -> No idea...                    #
 0,  0, //[US]       #  bit 5 -> No idea...                    #
-44, 0, //[SPACE]	#  bit 6 -> No idea...                    #
+44, 0, //[SPACE]	#  bit 6 -> Alt Gr                        #
 40, 0, //!          #  bit 7 -> No idea...                    #
 32, 0, //"          #                                         #
-100,2, //#          ###########################################
-51, 0, //$
+32, 64,//#          ###########################################
+48, 0, //$
 52, 2, //%
 30, 0, //&
 33, 0, //'
-37, 0, //(
-48, 0, //)
+34, 0, //(
+45, 0, //)
 84, 0, //*
 86, 0, //+
 16, 0, //,
-46, 0, //-
-54, 2, //.
-84, 0, ///
+35, 0, //-
+99, 0, //.
+83, 0, ///
 98, 0, //0
 89, 0, //1
 90, 0, //2
@@ -56,12 +56,12 @@ const int8_t layout[] PROGMEM = {0,0,  0,0, //[NUL] & [SOH] (2 chars on this lin
 96, 0, //8
 97, 0, //9
 55, 0, //:
-57, 0, //;
-56, 0, //<
-56, 0, //=
-53, 2, //>
+54, 0, //;
+100,0, //<
+46, 0, //=
+100,2, //>
 16, 2, //?
-100,0, //@
+39, 64,//@
 20, 2, //A
 5,  2, //B
 6,  2, //C
@@ -88,12 +88,12 @@ const int8_t layout[] PROGMEM = {0,0,  0,0, //[NUL] & [SOH] (2 chars on this lin
 27, 2, //X
 28, 2, //Y
 26, 2, //Z
-34, 6, //[
-55, 6, //\ 
-45, 6, //]
-50, 0, //^
-46, 2, //_
-49, 0, //`
+34, 64,//[
+37, 64,//\ 
+45, 64,//]
+47, 0, //^
+37, 0, //_
+36, 64,//`
 20, 0, //a
 5,  0, //b
 6,  0, //c
@@ -120,8 +120,8 @@ const int8_t layout[] PROGMEM = {0,0,  0,0, //[NUL] & [SOH] (2 chars on this lin
 27, 0, //x
 28, 0, //y
 26, 0, //z
-34, 4, //{
-15, 6, //|
-45, 4, //}
-17, 4, //~
+33, 64,//{
+35, 64,//|
+46, 64,//}
+31, 64,//~
 0,  0};//[DEL]
